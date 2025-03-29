@@ -1,21 +1,19 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Home } from './pages/Home';
-import { Login } from './components/auth/Login';
-// import { Register } from './components/Auth/Register';
-import { Dashboard } from './pages/Dashboard';
-import { ThemeProvider } from './context/ThemeContext';
+import { BrowserRouter as Router, } from 'react-router-dom';
+import { ThemeProvider } from '@/context/ThemeContext';
+import AuthProvider from '@/providers/authProvider';
+import RouterConfig from '@/routes/RouterConfig';
+import Layout from '@/components/layout/Layout';
 
 function App() {
   return (
     <ThemeProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          {/* <Route path="/register" element={<Register />} /> */}
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Routes>
-      </Router>
+      <AuthProvider>
+        <Router>
+          <Layout>
+            <RouterConfig />
+          </Layout>
+        </Router>
+      </AuthProvider>
     </ThemeProvider>
   );
 }
