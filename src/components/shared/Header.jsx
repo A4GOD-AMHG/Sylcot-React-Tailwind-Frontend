@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
-import { useTheme } from '@/context/ThemeContext';
+
 import { FiSun, FiMoon } from 'react-icons/fi';
 import { FaUserCircle } from 'react-icons/fa';
 import { useState } from 'react';
 import useAuth from '@/hooks/useAuth';
+import useTheme from '@/hooks/useTheme';
 
 const Header = () => {
     const { toggleTheme, isDark } = useTheme();
@@ -15,7 +16,7 @@ const Header = () => {
             <nav className="container max-w-7xl mx-auto px-6 py-3">
                 <div className="flex items-center text-gray-800 dark:text-white h-12 justify-between">
                     <Link to="/">
-                        <h1 className='text-4xl font-bold'>SyLCot</h1>
+                        <h1 className='text-4xl font-bold'>Sylcot</h1>
                     </Link>
                     <div className="flex items-center gap-4">
                         <button
@@ -54,7 +55,7 @@ const Header = () => {
                             </div>
                         ) : (
                             <Link
-                                to="/login"
+                                to="/auth/login"
                                 className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
                             >
                                 Login
