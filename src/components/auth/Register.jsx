@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { FiSun, FiMoon } from 'react-icons/fi';
+import { Link, useNavigate } from 'react-router-dom';
+import { FiEye, FiEyeOff, FiArrowLeft, FiSun, FiMoon } from 'react-icons/fi';
 import useTheme from '@/hooks/useTheme';
 
 export const Register = () => {
@@ -10,6 +10,7 @@ export const Register = () => {
     const [showPassword, setIsShowPassword] = useState(false);
     const { toggleTheme, isDark } = useTheme();
     const [showConfirmPassword, setIsShowConfirmPassword] = useState(false);
+    const navigate = useNavigate();
 
     const handleShowPassword = () => setIsShowPassword(!showPassword);
     const handleShowConfirmPassword = () => setIsShowConfirmPassword(!showConfirmPassword);
@@ -20,9 +21,15 @@ export const Register = () => {
     };
 
     return (
-        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-8">
-            <div className='flex justify-between'>
-                <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white text-center">Create Account</h2>
+        <div className="bg-gray-100 dark:bg-gray-900 rounded-lg shadow-md p-8">
+            <div className='flex justify-between mb-6'>
+                <button
+                    onClick={() => navigate("/")}
+                    className="cursor-pointer p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                >
+                    <FiArrowLeft className="w-5 h-5 text-gray-800 dark:text-white" />
+                </button>
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-white text-center">Create Account</h2>
                 <button
                     onClick={toggleTheme}
                     className="h-min p-2 rounded-lg cursor-pointer bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
@@ -41,29 +48,51 @@ export const Register = () => {
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="auth-input"
+                        className="custom-input"
                         required
                     />
                 </div>
-                <div>
+                <div className='relative'>
                     <label className="block text-gray-700 dark:text-white mb-2">Password</label>
                     <input
                         type={showPassword ? "text" : "password"}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full px-4 py-2 border rounded-lg dark:text-white text-gray-800 dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-gray-700 dark:focus:ring-gray-100 focus:border-transparent"
+                        className="custom-input"
                         required
                     />
+                    <button
+                        type="button"
+                        onClick={handleShowPassword}
+                        className="absolute right-2 cursor-pointer bottom-2 p-1 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                    >
+                        {showPassword ? (
+                            <FiEyeOff className="w-5 h-5" />
+                        ) : (
+                            <FiEye className="w-5 h-5" />
+                        )}
+                    </button>
                 </div>
-                <div>
+                <div className='relative'>
                     <label className="block text-gray-700 dark:text-white mb-2">Confirm Password</label>
                     <input
-                        type={showPassword ? "text" : "password"}
+                        type={showConfirmPassword ? "text" : "password"}
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="w-full px-4 py-2 border rounded-lg dark:text-white text-gray-800 dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-gray-700 dark:focus:ring-gray-100 focus:border-transparent"
+                        className="custom-input"
                         required
                     />
+                    <button
+                        type="button"
+                        onClick={handleShowConfirmPassword}
+                        className="absolute right-2 cursor-pointer bottom-2 p-1 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                    >
+                        {showConfirmPassword ? (
+                            <FiEyeOff className="w-5 h-5" />
+                        ) : (
+                            <FiEye className="w-5 h-5" />
+                        )}
+                    </button>
                 </div>
                 <button
                     type="submit"

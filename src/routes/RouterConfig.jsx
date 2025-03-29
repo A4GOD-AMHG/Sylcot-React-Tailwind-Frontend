@@ -18,10 +18,9 @@ const RouterConfig = () => {
 
             <Route path='/' element={<Layout />}>
                 <Route path="/" element={<Home />} />
-            </Route>
-
-            <Route element={<ProtectedRoute />}>
-                <Route path="/dashboard" element={<Dashboard />} />
+                <Route element={<ProtectedRoute />}>
+                    <Route path="/dashboard" element={<Dashboard />} />
+                </Route>
             </Route>
 
             <Route path="*" element={<PageNotFound />} />

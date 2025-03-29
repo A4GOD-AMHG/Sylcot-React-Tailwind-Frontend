@@ -1,11 +1,14 @@
 import React from 'react';
+import useTheme from '@/hooks/useTheme';
 
 const Footer = () => {
+    const { isDark } = useTheme();
+
     const socialLinks = [
         {
             name: 'GitHub',
             href: 'https://github.com/A4GOD-AMHG',
-            icon: '/github.svg'
+            icon: isDark ? "/github-white.svg" : "/github.svg"
         },
         {
             name: 'Facebook',
@@ -31,7 +34,7 @@ const Footer = () => {
 
 
     return (
-        <footer className="bg-primary dark:bg-gray-800 shadow-md w-full">
+        <footer className="bg-gray-100 dark:bg-gray-900 shadow-md w-full">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                     <p className="text-black dark:text-white text-sm md:text-md text-center md:text-left">

@@ -16,7 +16,7 @@ const Layout = () => {
 
 
     return (
-        <div className="flex flex-col bg-gray-100 dark:bg-gray-800 min-h-screen">
+        <div className="flex flex-col bg-white dark:bg-gray-800 min-h-screen">
             {!isExcludedRoute && <Header />}
             <main className="flex-grow py-6 container mx-auto">
                 <Outlet />

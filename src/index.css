@@ -17,11 +17,15 @@
     font-family: "DM Sans", sans-serif;
     font-optical-sizing: auto;
   }
+
+  input {
+    background-color: white;
+  }
 }
 
 @layer components {
-  .auth-input {
-    @apply w-full px-4 py-2 border rounded-lg dark:text-white text-gray-800 dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-gray-700 dark:focus:ring-gray-100 focus:border-transparent;
+  .custom-input {
+    @apply w-full px-4 py-2 border rounded-lg bg-white dark:text-white text-gray-800 placeholder:text-gray-500 dark:placeholder:text-white dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-gray-700 dark:focus:ring-gray-100 focus:border-transparent;
   }
 
   .button {

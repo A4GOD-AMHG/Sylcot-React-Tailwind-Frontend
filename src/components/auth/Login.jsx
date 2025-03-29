@@ -1,13 +1,15 @@
 import { useState } from 'react';
-import { FiSun, FiMoon } from 'react-icons/fi';
+import { FiSun, FiMoon, FiArrowLeft, FiEye, FiEyeOff } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import useTheme from '@/hooks/useTheme';
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setIsShowPassword] = useState(false);
     const { toggleTheme, isDark } = useTheme();
+    const navigate = useNavigate();
 
     const handleShowPassword = () => setIsShowPassword(!showPassword);
 
@@ -17,12 +19,18 @@ export const Login = () => {
     };
 
     return (
-        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-8">
-            <div className='flex justify-between'>
-                <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white text-center">Welcome to Sylcot</h2>
+        <div className="bg-gray-100 dark:bg-gray-900 rounded-lg shadow-md p-8">
+            <div className='flex items-center justify-between mb-6'>
+                <button
+                    onClick={() => navigate("/")}
+                    className="cursor-pointer p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                >
+                    <FiArrowLeft className="w-5 h-5 text-gray-800 dark:text-white" />
+                </button>
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-white text-center">Welcome to Sylcot</h2>
                 <button
                     onClick={toggleTheme}
-                    className="h-min p-2 rounded-lg cursor-pointer bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                    className="h-min p-2 rounded-lg cursor-pointer bg-white dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                 >
                     {isDark ? (
                         <FiSun className="w-5 h-5 text-gray-800 dark:text-white" />
@@ -38,19 +46,30 @@ export const Login = () => {
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full px-4 py-2 border rounded-lg dark:text-white text-gray-800 dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-gray-700 dark:focus:ring-gray-100 focus:border-transparent"
+                        className="custom-input"
                         required
                     />
                 </div>
-                <div>
+                <div className="relative">
                     <label className="block text-gray-700 dark:text-white mb-2">Password</label>
                     <input
                         type={showPassword ? "text" : "password"}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full px-4 py-2 border rounded-lg dark:text-white text-gray-800 dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-gray-700 dark:focus:ring-gray-100 focus:border-transparent"
+                        className="pr-10 custom-input"
                         required
                     />
+                    <button
+                        type="button"
+                        onClick={handleShowPassword}
+                        className="absolute right-2 cursor-pointer bottom-2 p-1 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                    >
+                        {showPassword ? (
+                            <FiEyeOff className="w-5 h-5" />
+                        ) : (
+                            <FiEye className="w-5 h-5" />
+                        )}
+                    </button>
                 </div>
                 <button
                     type="submit"

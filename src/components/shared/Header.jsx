@@ -12,16 +12,16 @@ const Header = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     return (
-        <header className="bg-white dark:bg-gray-800 shadow-md">
+        <header className="bg-gray-100 dark:bg-gray-900 shadow-md">
             <nav className="container max-w-7xl mx-auto px-6 py-3">
                 <div className="flex items-center text-gray-800 dark:text-white h-12 justify-between">
                     <Link to="/">
-                        <h1 className='text-4xl font-bold'>Sylcot</h1>
+                        <h1 className='text-4xl py-2 mt-4 font-bold bg-gradient-to-r from-gray-600 to-gray-800 dark:from-gray-400 dark:to-gray-300 bg-clip-text text-transparent mb-6 leading-tight'>Sylcot</h1>
                     </Link>
                     <div className="flex items-center gap-4">
                         <button
                             onClick={toggleTheme}
-                            className="p-2 rounded-lg cursor-pointer bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                            className="p-2 rounded-lg cursor-pointer bg-white dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                         >
                             {isDark ? (
                                 <FiSun className="w-5 h-5 text-gray-800 dark:text-white" />
