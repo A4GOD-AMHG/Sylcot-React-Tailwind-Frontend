@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Header } from '../components/shared/Header';
+import Header from '../components/shared/Header';
 import Footer from '../components/shared/Footer';
 import { TaskModal } from '../components/tasks/TaskModal';
 

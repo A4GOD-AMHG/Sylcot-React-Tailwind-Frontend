@@ -6,7 +6,6 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-
   --font-dm-sans: DM Sans, sans-serif;
 
   --breakpoint-xs: 480px;

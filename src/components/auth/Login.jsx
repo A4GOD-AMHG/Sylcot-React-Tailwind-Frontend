@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Header } from '../shared/Header';
+import Header from '../shared/Header';
 
 export const Login = () => {
     const [email, setEmail] = useState('');
