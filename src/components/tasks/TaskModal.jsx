@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const TaskModal = ({ onClose, onSave }) => {
+const TaskModal = ({ onClose, onSave }) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('todo');
@@ -63,3 +63,5 @@ export const TaskModal = ({ onClose, onSave }) => {
         </div>
     );
 };
+
+export default TaskModal
