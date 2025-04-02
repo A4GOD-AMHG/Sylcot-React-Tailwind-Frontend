@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import useAuth from '@/hooks/useAuth';
-import LoadingSpinner from '@/components/shared/LoadingSpinner'; // Componente de carga opcional
+import LoadingSpinner from '@/components/shared/LoadingSpinner';
 
 const ProtectedRoute = () => {
     const { isAuthenticated, loading } = useAuth();

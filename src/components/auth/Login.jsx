@@ -3,6 +3,7 @@ import { FiSun, FiMoon, FiArrowLeft, FiEye, FiEyeOff } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import useTheme from '@/hooks/useTheme';
 import { useNavigate } from 'react-router-dom';
+import useAuth from '@/hooks/useAuth';
 
 export const Login = () => {
     const [email, setEmail] = useState('');
@@ -10,6 +11,7 @@ export const Login = () => {
     const [showPassword, setIsShowPassword] = useState(false);
     const { toggleTheme, isDark } = useTheme();
     const navigate = useNavigate();
+    const { } = useAuth()
 
     const handleShowPassword = () => setIsShowPassword(!showPassword);
 
