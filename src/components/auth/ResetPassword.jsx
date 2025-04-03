@@ -1,23 +1,28 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { FiCheckCircle } from 'react-icons/fi';
+import { useAuth } from '@/context/AuthContext';
+
 
 export const ResetPassword = () => {
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [searchParams] = useSearchParams();
+    const token = searchParams.get('token');
+    const [message, setMessage] = useState('');
+    const { resetPassword } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Simular petición a la API
         try {
-            // Aquí iría tu llamada a la API
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            setIsSubmitted(true);
+            await resetPassword({ token, password });
+            setMessage('Password updated successfully');
         } catch (error) {
-            console.error('Error:', error);
+            console.log(error)
+            setMessage('Error updating password');
         }
     };
-
     return (
         <div className="bg-gray-100 dark:bg-gray-900 rounded-lg shadow-md p-8 w-full max-w-md">
             <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white text-center">
@@ -42,6 +47,7 @@ export const ResetPassword = () => {
                     >
                         Send Reset Instructions
                     </button>
+                    {message && <p>{message}</p>}
                 </form>
             ) : (
                 <div className="text-center space-y-6">

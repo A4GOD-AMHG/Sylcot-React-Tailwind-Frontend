@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FiEye, FiEyeOff, FiArrowLeft, FiSun, FiMoon } from 'react-icons/fi';
 import useTheme from '@/hooks/useTheme';
+import { useAuth } from '@/context/AuthContext';
 
 export const Register = () => {
     const [email, setEmail] = useState('');
@@ -11,13 +12,32 @@ export const Register = () => {
     const { toggleTheme, isDark } = useTheme();
     const [showConfirmPassword, setIsShowConfirmPassword] = useState(false);
     const navigate = useNavigate();
+    const { register } = useAuth();
+    const [error, setError] = useState('');
 
     const handleShowPassword = () => setIsShowPassword(!showPassword);
     const handleShowConfirmPassword = () => setIsShowConfirmPassword(!showConfirmPassword);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Registration logic
+        try {
+            if (!email || !password) {
+                setError('Email and password are required');
+                return;
+            }
+            if (password.length < 6) {
+                setError('Password must be at least 8 characters long, a capital letter, a number, and a special character');
+                return;
+            }
+            if (password !== confirmPassword) {
+                setError('Passwords do not match');
+                return;
+            }
+            await register({ email, password });
+            navigate('/dashboard');
+        } catch (err) {
+            console.log(err)
+        }
     };
 
     return (
@@ -94,6 +114,7 @@ export const Register = () => {
                         )}
                     </button>
                 </div>
+                {error && <p className="text-red-500 text-center">{error}</p>}
                 <button
                     type="submit"
                     className="button"

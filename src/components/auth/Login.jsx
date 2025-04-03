@@ -3,21 +3,29 @@ import { FiSun, FiMoon, FiArrowLeft, FiEye, FiEyeOff } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import useTheme from '@/hooks/useTheme';
 import { useNavigate } from 'react-router-dom';
-import useAuth from '@/hooks/useAuth';
+import { useAuth } from '@/context/AuthContext';
+
 
 export const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
     const [showPassword, setIsShowPassword] = useState(false);
     const { toggleTheme, isDark } = useTheme();
     const navigate = useNavigate();
-    const { } = useAuth()
+    const { login } = useAuth()
 
     const handleShowPassword = () => setIsShowPassword(!showPassword);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Login logic
+        try {
+            await login({ email, password });
+            navigate('/dashboard');
+        } catch (err) {
+            console.log(err)
+            setError('Invalid credentials');
+        }
     };
 
     return (
@@ -42,6 +50,7 @@ export const Login = () => {
                 </button>
             </div>
             <form onSubmit={handleSubmit} className="space-y-6">
+                {error && <p className="text-red-500">{error}</p>}
                 <div>
                     <label className="block text-gray-700 dark:text-white mb-2">Email</label>
                     <input

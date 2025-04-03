@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FiSun, FiMoon } from 'react-icons/fi';
 import { FaUserCircle } from 'react-icons/fa';
 import { useState } from 'react';
-import useAuth from '@/hooks/useAuth';
+import { useAuth } from '@/context/AuthContext';
 import useTheme from '@/hooks/useTheme';
 
 const Header = () => {
