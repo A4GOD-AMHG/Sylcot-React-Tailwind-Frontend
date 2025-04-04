@@ -3,340 +3,6 @@ import TaskModal from '@/components/tasks/TaskModal';
 import TaskCard from '@/components/tasks/TaskCard';
 import { FaChevronDown, FaTimes } from 'react-icons/fa';
 
-
-const data = [
-    {
-        "id": 2,
-        "created_at": "2025-03-31T02:08:07.508Z",
-        "updated_at": "2025-03-31T02:08:07.508Z",
-        "deleted_at": null,
-        "title": "Task 1",
-        "priority": "low",
-        "status": false,
-        "category_id": 1,
-        "user_id": 1,
-        "category": {
-            "id": 1,
-            "created_at": "2025-02-25T20:39:58.304Z",
-            "updated_at": "2025-02-25T20:39:58.304Z",
-            "deleted_at": null,
-            "title": "Home",
-            "color": "#FFAB91",
-            "icon_name": "home"
-        },
-        "user": {
-            "id": 1,
-            "created_at": "2025-03-27T19:18:14.314Z",
-            "updated_at": "2025-03-27T19:19:59.194Z",
-            "deleted_at": null,
-            "name": "alexis",
-            "email": "alexisalastor@gmail.com",
-            "password": "$2a$10$wcdiAgLOb/GpvkWk5BKcbeF3xbgo69C9ZaiDsikQ4R07cJICodSnq",
-            "is_verified": true,
-            "refresh_token": "",
-            "token": "",
-            "reset_token": ""
-        }
-    },
-    {
-        "id": 3,
-        "created_at": "2025-03-31T02:08:17.81Z",
-        "updated_at": "2025-03-31T02:08:17.81Z",
-        "deleted_at": null,
-        "title": "Task 2",
-        "priority": "high",
-        "status": false,
-        "category_id": 1,
-        "user_id": 1,
-        "category": {
-            "id": 1,
-            "created_at": "2025-02-25T20:39:58.304Z",
-            "updated_at": "2025-02-25T20:39:58.304Z",
-            "deleted_at": null,
-            "title": "Home",
-            "color": "#FFAB91",
-            "icon_name": "home"
-        },
-        "user": {
-            "id": 1,
-            "created_at": "2025-03-27T19:18:14.314Z",
-            "updated_at": "2025-03-27T19:19:59.194Z",
-            "deleted_at": null,
-            "name": "alexis",
-            "email": "alexisalastor@gmail.com",
-            "password": "$2a$10$wcdiAgLOb/GpvkWk5BKcbeF3xbgo69C9ZaiDsikQ4R07cJICodSnq",
-            "is_verified": true,
-            "refresh_token": "",
-            "token": "",
-            "reset_token": ""
-        }
-    },
-    {
-        "id": 4,
-        "created_at": "2025-03-31T02:08:22.888Z",
-        "updated_at": "2025-03-31T02:08:22.888Z",
-        "deleted_at": null,
-        "title": "Task 3",
-        "priority": "high",
-        "status": false,
-        "category_id": 3,
-        "user_id": 1,
-        "category": {
-            "id": 3,
-            "created_at": "2025-02-25T20:39:58.324Z",
-            "updated_at": "2025-02-25T20:39:58.324Z",
-            "deleted_at": null,
-            "title": "Sports",
-            "color": "#81C784",
-            "icon_name": "sports_soccer"
-        },
-        "user": {
-            "id": 1,
-            "created_at": "2025-03-27T19:18:14.314Z",
-            "updated_at": "2025-03-27T19:19:59.194Z",
-            "deleted_at": null,
-            "name": "alexis",
-            "email": "alexisalastor@gmail.com",
-            "password": "$2a$10$wcdiAgLOb/GpvkWk5BKcbeF3xbgo69C9ZaiDsikQ4R07cJICodSnq",
-            "is_verified": true,
-            "refresh_token": "",
-            "token": "",
-            "reset_token": ""
-        }
-    },
-    {
-        "id": 5,
-        "created_at": "2025-03-31T02:08:31.787Z",
-        "updated_at": "2025-03-31T02:08:31.787Z",
-        "deleted_at": null,
-        "title": "Task 4",
-        "priority": "medium",
-        "status": false,
-        "category_id": 3,
-        "user_id": 1,
-        "category": {
-            "id": 3,
-            "created_at": "2025-02-25T20:39:58.324Z",
-            "updated_at": "2025-02-25T20:39:58.324Z",
-            "deleted_at": null,
-            "title": "Sports",
-            "color": "#81C784",
-            "icon_name": "sports_soccer"
-        },
-        "user": {
-            "id": 1,
-            "created_at": "2025-03-27T19:18:14.314Z",
-            "updated_at": "2025-03-27T19:19:59.194Z",
-            "deleted_at": null,
-            "name": "alexis",
-            "email": "alexisalastor@gmail.com",
-            "password": "$2a$10$wcdiAgLOb/GpvkWk5BKcbeF3xbgo69C9ZaiDsikQ4R07cJICodSnq",
-            "is_verified": true,
-            "refresh_token": "",
-            "token": "",
-            "reset_token": ""
-        }
-    },
-    {
-        "id": 6,
-        "created_at": "2025-03-31T02:08:41.992Z",
-        "updated_at": "2025-03-31T02:08:41.992Z",
-        "deleted_at": null,
-        "title": "Task 5",
-        "priority": "low",
-        "status": false,
-        "category_id": 3,
-        "user_id": 1,
-        "category": {
-            "id": 3,
-            "created_at": "2025-02-25T20:39:58.324Z",
-            "updated_at": "2025-02-25T20:39:58.324Z",
-            "deleted_at": null,
-            "title": "Sports",
-            "color": "#81C784",
-            "icon_name": "sports_soccer"
-        },
-        "user": {
-            "id": 1,
-            "created_at": "2025-03-27T19:18:14.314Z",
-            "updated_at": "2025-03-27T19:19:59.194Z",
-            "deleted_at": null,
-            "name": "alexis",
-            "email": "alexisalastor@gmail.com",
-            "password": "$2a$10$wcdiAgLOb/GpvkWk5BKcbeF3xbgo69C9ZaiDsikQ4R07cJICodSnq",
-            "is_verified": true,
-            "refresh_token": "",
-            "token": "",
-            "reset_token": ""
-        }
-    },
-    {
-        "id": 7,
-        "created_at": "2025-03-31T02:08:49.092Z",
-        "updated_at": "2025-03-31T02:08:49.092Z",
-        "deleted_at": null,
-        "title": "Task 6",
-        "priority": "medium",
-        "status": false,
-        "category_id": 5,
-        "user_id": 1,
-        "category": {
-            "id": 5,
-            "created_at": "2025-02-25T20:39:58.343Z",
-            "updated_at": "2025-02-25T20:39:58.343Z",
-            "deleted_at": null,
-            "title": "Health",
-            "color": "#EF9A9A",
-            "icon_name": "favorite_border"
-        },
-        "user": {
-            "id": 1,
-            "created_at": "2025-03-27T19:18:14.314Z",
-            "updated_at": "2025-03-27T19:19:59.194Z",
-            "deleted_at": null,
-            "name": "alexis",
-            "email": "alexisalastor@gmail.com",
-            "password": "$2a$10$wcdiAgLOb/GpvkWk5BKcbeF3xbgo69C9ZaiDsikQ4R07cJICodSnq",
-            "is_verified": true,
-            "refresh_token": "",
-            "token": "",
-            "reset_token": ""
-        }
-    },
-    {
-        "id": 8,
-        "created_at": "2025-03-31T02:08:55.222Z",
-        "updated_at": "2025-03-31T02:08:55.222Z",
-        "deleted_at": null,
-        "title": "Task 7",
-        "priority": "medium",
-        "status": false,
-        "category_id": 7,
-        "user_id": 1,
-        "category": {
-            "id": 7,
-            "created_at": "2025-02-25T20:39:58.362Z",
-            "updated_at": "2025-02-25T20:39:58.362Z",
-            "deleted_at": null,
-            "title": "Shopping",
-            "color": "#CE93D8",
-            "icon_name": "shopping_cart"
-        },
-        "user": {
-            "id": 1,
-            "created_at": "2025-03-27T19:18:14.314Z",
-            "updated_at": "2025-03-27T19:19:59.194Z",
-            "deleted_at": null,
-            "name": "alexis",
-            "email": "alexisalastor@gmail.com",
-            "password": "$2a$10$wcdiAgLOb/GpvkWk5BKcbeF3xbgo69C9ZaiDsikQ4R07cJICodSnq",
-            "is_verified": true,
-            "refresh_token": "",
-            "token": "",
-            "reset_token": ""
-        }
-    },
-    {
-        "id": 9,
-        "created_at": "2025-03-31T02:09:02.958Z",
-        "updated_at": "2025-03-31T02:09:02.958Z",
-        "deleted_at": null,
-        "title": "Task 8",
-        "priority": "high",
-        "status": false,
-        "category_id": 10,
-        "user_id": 1,
-        "category": {
-            "id": 10,
-            "created_at": "2025-02-25T20:39:58.39Z",
-            "updated_at": "2025-02-25T20:39:58.39Z",
-            "deleted_at": null,
-            "title": "Social",
-            "color": "#FFCC80",
-            "icon_name": "groups"
-        },
-        "user": {
-            "id": 1,
-            "created_at": "2025-03-27T19:18:14.314Z",
-            "updated_at": "2025-03-27T19:19:59.194Z",
-            "deleted_at": null,
-            "name": "alexis",
-            "email": "alexisalastor@gmail.com",
-            "password": "$2a$10$wcdiAgLOb/GpvkWk5BKcbeF3xbgo69C9ZaiDsikQ4R07cJICodSnq",
-            "is_verified": true,
-            "refresh_token": "",
-            "token": "",
-            "reset_token": ""
-        }
-    },
-    {
-        "id": 10,
-        "created_at": "2025-03-31T02:09:06.411Z",
-        "updated_at": "2025-03-31T02:09:06.411Z",
-        "deleted_at": null,
-        "title": "Task 9",
-        "priority": "high",
-        "status": false,
-        "category_id": 10,
-        "user_id": 1,
-        "category": {
-            "id": 10,
-            "created_at": "2025-02-25T20:39:58.39Z",
-            "updated_at": "2025-02-25T20:39:58.39Z",
-            "deleted_at": null,
-            "title": "Social",
-            "color": "#FFCC80",
-            "icon_name": "groups"
-        },
-        "user": {
-            "id": 1,
-            "created_at": "2025-03-27T19:18:14.314Z",
-            "updated_at": "2025-03-27T19:19:59.194Z",
-            "deleted_at": null,
-            "name": "alexis",
-            "email": "alexisalastor@gmail.com",
-            "password": "$2a$10$wcdiAgLOb/GpvkWk5BKcbeF3xbgo69C9ZaiDsikQ4R07cJICodSnq",
-            "is_verified": true,
-            "refresh_token": "",
-            "token": "",
-            "reset_token": ""
-        }
-    },
-    {
-        "id": 11,
-        "created_at": "2025-03-31T02:09:12.849Z",
-        "updated_at": "2025-03-31T02:09:12.849Z",
-        "deleted_at": null,
-        "title": "Task 10",
-        "priority": "low",
-        "status": false,
-        "category_id": 12,
-        "user_id": 1,
-        "category": {
-            "id": 12,
-            "created_at": "2025-02-25T20:39:58.408Z",
-            "updated_at": "2025-02-25T20:39:58.408Z",
-            "deleted_at": null,
-            "title": "Pets",
-            "color": "#BCAAA4",
-            "icon_name": "pets"
-        },
-        "user": {
-            "id": 1,
-            "created_at": "2025-03-27T19:18:14.314Z",
-            "updated_at": "2025-03-27T19:19:59.194Z",
-            "deleted_at": null,
-            "name": "alexis",
-            "email": "alexisalastor@gmail.com",
-            "password": "$2a$10$wcdiAgLOb/GpvkWk5BKcbeF3xbgo69C9ZaiDsikQ4R07cJICodSnq",
-            "is_verified": true,
-            "refresh_token": "",
-            "token": "",
-            "reset_token": ""
-        }
-    }
-];
-
 const dataCategories = [
     { "id": 1, "title": "Home" },
     { "id": 2, "title": "Work" },
@@ -346,8 +12,8 @@ export const Dashboard = () => {
     const [showModal, setShowModal] = useState(false);
     const [tasks, setTasks] = useState([]);
     const [categories, setCategories] = useState([]);
-    // const [loading, setLoading] = useState(true);
-    // const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [filters, setFilters] = useState({
         search: '',
         selectedCategories: [],
@@ -356,6 +22,24 @@ export const Dashboard = () => {
         sortBy: 'created_at',
         order: 'asc'
     });
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [tasksRes, categoriesRes] = await Promise.all([
+                    getTasks(),
+                    getCategories()
+                ]);
+                setTasks(tasksRes.data);
+                setCategories(categoriesRes.data);
+            } catch (err) {
+                setError(err.response?.data?.message || 'Error fetching data');
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchData();
+    }, []);
 
     const handleClearSearch = () => {
         setFilters(prev => ({ ...prev, search: '' }));
@@ -423,69 +107,64 @@ export const Dashboard = () => {
         }));
     };
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const categoriesResponse = await fetch('/api/categories');
-    //             const categoriesData = await categoriesResponse.json();
-    //             setCategories(categoriesData);
-
-    //             const tasksResponse = await fetch('/api/tasks');
-    //             const tasksData = await tasksResponse.json();
-    //             setTasks(tasksData);
-    //         } catch (err) {
-    //             setError(err.message);
-    //         } finally {
-    //             setLoading(false);
-    //         }
-    //     };
-
-    //     fetchData();
-    // }, []);
-
     useEffect(() => {
         setCategories(dataCategories);
     }, []);
 
     useEffect(() => {
-        setTasks(data);
+        setTasks([]);
     }, []);
-
-    const addTask = (newTask) => {
-        setTasks([...tasks, { ...newTask, id: Date.now(), createdAt: new Date() }]);
+    const addTask = async (newTask) => {
+        try {
+            const res = await createTask({
+                title: newTask.title,
+                category_id: parseInt(newTask.category),
+                priority: newTask.priority
+            });
+            setTasks([...tasks, res.data]);
+        } catch (err) {
+            setError(err.response?.data?.message || 'Error creating task');
+        }
     };
 
-    const onToggleTask = (taskId) => {
-        setTasks(prevTasks =>
-            prevTasks.map(task =>
-                task.id === taskId
-                    ? { ...task, status: !task.status }
-                    : task
-            )
-        );
-    }
-
-    const onDeleteTask = (taskId) => {
-        setTasks(prevTasks =>
-            prevTasks.filter(task => task.id !== taskId)
-        );
+    const handleUpdateTask = async (updatedTask) => {
+        try {
+            const res = await updateTask(updatedTask.id, {
+                title: updatedTask.title,
+                category_id: parseInt(updatedTask.category),
+                priority: updatedTask.priority
+            });
+            setTasks(tasks.map(task => task.id === res.data.id ? res.data : task));
+        } catch (err) {
+            setError(err.response?.data?.message || 'Error updating task');
+        }
     };
 
-    // if (loading) {
-    //     return (
-    //         <div className="flex flex-col py-4">
-    //             <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-    //                 {[...Array(6)].map((_, i) => (
-    //                     <div key={i} className="animate-pulse bg-gray-200 dark:bg-gray-700 h-32 rounded-lg" />
-    //                 ))}
-    //             </div>
-    //         </div>
-    //     );
-    // }
+    const onDeleteTask = async (taskId) => {
+        try {
+            await deleteTask(taskId);
+            setTasks(tasks.filter(task => task.id !== taskId));
+        } catch (err) {
+            setError(err.response?.data?.message || 'Error deleting task');
+        }
+    };
 
-    // if (error) {
-    //     return <div className="text-red-500 p-4">Error: {error}</div>;
-    // }
+    const onToggleTask = async (taskId) => {
+        try {
+            const res = await toggleTask(taskId);
+            setTasks(tasks.map(task =>
+                task.id === taskId ? res.data : task
+            ));
+        } catch (err) {
+            setError(err.response?.data?.message || 'Error toggling task');
+        }
+    };
+
+    const handleEditTask = (task) => {
+        setEditingTask(task);
+        setShowModal(true);
+    };
+
     return (
         <div className='flex flex-col py-4'>
             <div className="mb-6">

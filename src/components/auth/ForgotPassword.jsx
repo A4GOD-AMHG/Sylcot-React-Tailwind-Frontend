@@ -1,20 +1,18 @@
 import { useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FiCheckCircle } from 'react-icons/fi';
 import { useAuth } from '@/context/AuthContext';
 
 
-export const ResetPassword = () => {
-    const [password, setPassword] = useState('');
+export const ForgotPassword = () => {
+    const [email, setEmail] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const [searchParams] = useSearchParams();
-    const token = searchParams.get('token');
-    const { resetPassword } = useAuth();
+    const { forgotPassword } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await resetPassword({ token, password });
+            await forgotPassword(email);
         } catch (error) {
             console.log(error)
         }
@@ -22,7 +20,7 @@ export const ResetPassword = () => {
     return (
         <div className="bg-gray-100 dark:bg-gray-900 rounded-lg shadow-md p-8 w-full max-w-md">
             <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white text-center">
-                {isSubmitted ? 'Check Your Email' : 'Reset Password'}
+                {isSubmitted ? 'Check Your Email' : 'Forgot Password'}
             </h2>
 
             {!isSubmitted ? (

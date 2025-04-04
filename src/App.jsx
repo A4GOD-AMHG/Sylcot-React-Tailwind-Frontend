@@ -9,10 +9,10 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <Router>
-          <ToastContainer />
           <RouterConfig />
         </Router>
       </AuthProvider>
+      <ToastContainer newestOnTop />
     </ThemeProvider>
   );
 }

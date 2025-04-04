@@ -30,7 +30,7 @@ export const Register = () => {
                 setError('Email and password are required');
                 return;
             }
-            if (password.length < 6) {
+            if (password.length < 8) {
                 setError('Password must be at least 8 characters long, a capital letter, a number, and a special character');
                 return;
             }

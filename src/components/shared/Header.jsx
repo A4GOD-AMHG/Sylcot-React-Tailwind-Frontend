@@ -8,7 +8,7 @@ import useTheme from '@/hooks/useTheme';
 
 const Header = () => {
     const { toggleTheme, isDark } = useTheme();
-    const { user, isAuthenticated, login, logout } = useAuth();
+    const { user, isAuthenticated, logout } = useAuth();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     return (
@@ -34,19 +34,26 @@ const Header = () => {
                             <div className="relative">
                                 <button
                                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                                    className="flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-700 p-2 rounded-lg transition-colors"
+                                    className="flex items-center gap-2 hover:bg-gray-100 cursor-pointer dark:hover:bg-gray-700 p-2 rounded-lg transition-colors"
                                 >
                                     <FaUserCircle className="w-6 h-6 text-gray-700 dark:text-gray-300" />
                                 </button>
 
                                 {isDropdownOpen && (
                                     <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 border dark:border-gray-700 z-20">
+                                        <div
+
+                                            className="block w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-200 cursor-default text-left"
+                                        >
+                                            User: {user.name}
+                                        </div>
+                                        <hr className='text-gray-700 dark:text-gray-200 mx-1' />
                                         <button
                                             onClick={() => {
                                                 logout();
                                                 setIsDropdownOpen(false);
                                             }}
-                                            className="block w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 text-left"
+                                            className="block w-full cursor-pointer px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 text-left"
                                         >
                                             Log out
                                         </button>

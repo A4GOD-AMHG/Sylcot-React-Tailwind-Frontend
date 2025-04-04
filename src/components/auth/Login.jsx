@@ -9,7 +9,6 @@ import { useAuth } from '@/context/AuthContext';
 export const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
     const [showPassword, setIsShowPassword] = useState(false);
     const { toggleTheme, isDark } = useTheme();
     const navigate = useNavigate();
@@ -19,13 +18,8 @@ export const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            await login({ email, password });
-            navigate('/dashboard');
-        } catch (err) {
-            console.log(err)
-            setError('Invalid credentials');
-        }
+        await login({ email, password });
+        navigate('/dashboard');
     };
 
     return (
@@ -50,7 +44,6 @@ export const Login = () => {
                 </button>
             </div>
             <form onSubmit={handleSubmit} className="space-y-6">
-                {error && <p className="text-red-500">{error}</p>}
                 <div>
                     <label className="block text-gray-700 dark:text-white mb-2">Email</label>
                     <input
@@ -89,7 +82,7 @@ export const Login = () => {
                     Sign In
                 </button>
                 <div className="text-center space-y-4">
-                    <Link to="/auth/reset-password" className="text-md text-blue-600 font-medium hover:underline block">
+                    <Link to="/auth/forgot-password" className="text-md text-blue-600 font-medium hover:underline block">
                         Forgot Password?
                     </Link>
                     <p className="text-gray-600 font-medium dark:text-gray-300">

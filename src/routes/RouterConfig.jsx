@@ -3,7 +3,7 @@ import { Home } from '@/pages/Home';
 import { Dashboard } from '@/pages/Dashboard';
 import ProtectedRoute from '@/components/auth/ProtectedRoute';
 import { PageNotFound } from '@/pages/PageNotFound';
-import { Login, Register, VerifyEmail, ResetPassword } from '@/components/auth';
+import { Login, Register, VerifyEmail, ResetPassword, ForgotPassword } from '@/components/auth';
 import { AuthLayout, Layout } from '@/components/layout';
 
 const RouterConfig = () => {
@@ -13,6 +13,7 @@ const RouterConfig = () => {
                 <Route path="/auth/login" element={<Login />} />
                 <Route path="/auth/register" element={<Register />} />
                 <Route path="/auth/verify-email" element={<VerifyEmail />} />
+                <Route path="/auth/forgot-password" element={<ForgotPassword />} />
                 <Route path="/auth/reset-password" element={<ResetPassword />} />
             </Route>
 

@@ -1,74 +1,105 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { AuthContext } from '@/context/AuthContext';
 import AuthService from '@/services/AuthService';
+import { toast } from 'react-toastify';
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const loadUser = async () => {
-            try {
-                const userData = await AuthService.getMe();
-                setUser(userData);
-            } catch (error) {
-                console.log(error)
-                setUser(null);
-            } finally {
-                setLoading(false);
-            }
-        };
+    const handleSuccess = (message) => {
+        toast.success(message || 'Success!', {
+            position: "top-right",
+            autoClose: 5000,
+            className: 'bg-green-700 text-white'
+        });
+    };
 
-        const token = localStorage.getItem('access_token');
-        token ? loadUser() : setLoading(false);
-    }, []);
+    const handleError = (message) => {
+        toast.error(message || 'Error!', {
+            position: "top-right",
+            autoClose: 5000,
+            className: 'bg-red-700 text-white'
+        });
+    };
 
     const login = async (credentials) => {
-        const data = await AuthService.login(credentials);
-        localStorage.setItem('access_token', data.accessToken);
-        setUser(data.user);
+
+        try {
+            const data = await AuthService.login(credentials);
+            localStorage.setItem('token', data.token);
+            setUser(data.user);
+            handleSuccess("User successfully logged");
+        } catch (error) {
+            handleError(error.message);
+        }
     };
 
     const register = async (userData) => {
-        const data = await AuthService.register(userData);
-        if (data.accessToken) {
-            localStorage.setItem('access_token', data.accessToken);
-            setUser(data.user);
+        try {
+            const data = await AuthService.register(userData);
+            if (data.token) {
+                localStorage.setItem('token', data.token);
+                setUser(data.user);
+            }
+            handleSuccess(data.message);
+            return data;
+        } catch (error) {
+            console.log(error)
+            handleError(error.response?.data?.message || error.message);
         }
-        return data;
+    };
+
+    const verifyEmail = async (email) => {
+        try {
+            const data = await AuthService.verifyEmail(email);
+            console.log(data)
+            handleSuccess(data.message);
+            return data;
+        } catch (error) {
+            handleError(error.response?.data?.message || error.message);
+        }
     };
 
     const forgotPassword = async (email) => {
-        const data = await AuthService.forgotPassword(email);
-        return data;
+        try {
+            const data = await AuthService.forgotPassword(email);
+            handleSuccess(data.message);
+            return data;
+        } catch (error) {
+            handleError(error.response?.data?.message || error.message);
+            throw error;
+        }
     };
 
     const resetPassword = async ({ token, password }) => {
-        const data = await AuthService.resetPassword({ token, password });
-        return data;
+        try {
+            const data = await AuthService.resetPassword({ token, password });
+            handleSuccess(data.message);
+            return data;
+        } catch (error) {
+            handleError(error.response?.data?.message || error.message);
+            throw error;
+        }
     };
 
     const logout = () => {
-        localStorage.removeItem('access_token');
+        localStorage.removeItem('token');
         setUser(null);
+        handleSuccess('User successfully logged out');
     };
 
     const value = {
         user,
-        loading,
         login,
         register,
+        verifyEmail,
         resetPassword,
         forgotPassword,
         logout,
         isAuthenticated: !!user,
     };
 
-    return (
-        <AuthContext.Provider value={value}>
-            {!loading && children}
-        </AuthContext.Provider>
-    );
-}
+    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};
 
-export default AuthProvider
+export default AuthProvider;

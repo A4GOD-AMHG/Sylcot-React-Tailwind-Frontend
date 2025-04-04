@@ -2,28 +2,48 @@ import api from '@/services/api';
 
 const AuthService = {
     login: async (credentials) => {
-        const { data } = await api.post('/auth/login', credentials);
-        return data;
+        try {
+            const response = await api.post('/auth/login', credentials);
+            return response.data;
+        } catch (error) {
+            throw new Error(error.response?.data?.error);
+        }
     },
 
     register: async (userData) => {
-        const { data } = await api.post('/auth/register', userData);
-        return data;
+        try {
+            const response = await api.post('/auth/register', userData);
+            return response.data;
+        } catch (error) {
+            throw new Error(error.response?.data?.error);
+        }
     },
 
     forgotPassword: async (email) => {
-        const { data } = await api.post('/auth/forgot-password', { email });
-        return data;
+        try {
+            const response = await api.post('/auth/forgot-password', { email });
+            return response.data;
+        } catch (error) {
+            throw new Error(error.response?.data?.error);
+        }
     },
 
     resetPassword: async ({ token, password }) => {
-        const { data } = await api.post('/auth/reset-password', { token, password });
-        return data;
+        try {
+            const response = await api.post('/auth/reset-password', { token, password });
+            return response.data;
+        } catch (error) {
+            throw new Error(error.response?.data?.error);
+        }
     },
 
     verifyEmail: async (token) => {
-        const { data } = await api.post(`/auth/verify-email/${token}`);
-        return data;
+        try {
+            const response = await api.get(`/auth/verify-email?token=${token}`);
+            return response.data;
+        } catch (error) {
+            throw new Error(error.response?.data?.error);
+        }
     },
 };
 
