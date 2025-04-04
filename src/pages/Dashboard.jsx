@@ -608,13 +608,6 @@ export const Dashboard = () => {
                         </div>
                     </div>
                 </div>
-
-                <button
-                    onClick={() => setShowModal(true)}
-                    className="px-4 py-2 bg-blue-500 cursor-pointer text-white rounded-lg hover:bg-blue-600"
-                >
-                    New Task
-                </button>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-3">

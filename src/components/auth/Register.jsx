@@ -5,6 +5,7 @@ import useTheme from '@/hooks/useTheme';
 import { useAuth } from '@/context/AuthContext';
 
 export const Register = () => {
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -21,6 +22,10 @@ export const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            if (!name) {
+                setError('Name is required');
+                return;
+            }
             if (!email || !password) {
                 setError('Email and password are required');
                 return;
@@ -33,7 +38,7 @@ export const Register = () => {
                 setError('Passwords do not match');
                 return;
             }
-            await register({ email, password });
+            await register({ name, email, password });
             navigate('/dashboard');
         } catch (err) {
             console.log(err)
@@ -62,6 +67,16 @@ export const Register = () => {
                 </button>
             </div>
             <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                    <label className="block text-gray-700 dark:text-white mb-2">Name</label>
+                    <input
+                        type="name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        className="custom-input"
+                        required
+                    />
+                </div>
                 <div>
                     <label className="block text-gray-700 dark:text-white mb-2">Email</label>
                     <input

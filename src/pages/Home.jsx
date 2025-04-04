@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 export const Home = () => {
     return (
         <main className="container flex mx-auto relative py-8 z-10">
@@ -13,12 +14,12 @@ export const Home = () => {
                 </p>
 
                 <div className="flex justify-center gap-4 mb-16">
-                    <button className="bg-blue-600 hover:bg-blue-700 cursor-pointer text-white px-8 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg hover:shadow-blue-500/30">
+                    <Link to="/auth/login" className="bg-blue-600 hover:bg-blue-700 cursor-pointer text-white px-8 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg hover:shadow-blue-500/30">
                         Get Started - It's Free
-                    </button>
-                    <button className="border-2 border-blue-500 cursor-pointer text-blue-600 dark:text-blue-300 hover:bg-blue-50 transition-all transform hover:scale-105 dark:hover:bg-blue-900/20 px-6 py-3 rounded-lg font-semibold">
+                    </Link>
+                    <Link to="/auth/login" className="border-2 border-blue-500 cursor-pointer text-blue-600 dark:text-blue-300 hover:bg-blue-50 transition-all transform hover:scale-105 dark:hover:bg-blue-900/20 px-6 py-3 rounded-lg font-semibold">
                         Login
-                    </button>
+                    </Link>
                 </div>
 
                 <div className="bg-gray-100 dark:bg-gray-700 p-6 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-600">
