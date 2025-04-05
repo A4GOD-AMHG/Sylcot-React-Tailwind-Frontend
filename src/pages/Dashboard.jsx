@@ -2,18 +2,15 @@ import { useEffect, useState } from 'react';
 import TaskModal from '@/components/tasks/TaskModal';
 import TaskCard from '@/components/tasks/TaskCard';
 import { FaChevronDown, FaTimes } from 'react-icons/fa';
-
-const dataCategories = [
-    { "id": 1, "title": "Home" },
-    { "id": 2, "title": "Work" },
-]
+import useTasks from '@/hooks/useTasks';
+import useCategories from '@/hooks/useCategories';
 
 export const Dashboard = () => {
     const [showModal, setShowModal] = useState(false);
-    const [tasks, setTasks] = useState([]);
-    const [categories, setCategories] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { tasks, loading, createTask, deleteTask, getTasks, toggleTask, updateTask } = useTasks();
+    const { categories, loading: categoriesLoading, getCategories } = useCategories();
+    const [selectedTask, setSelectedTask] = useState(null);
+
     const [filters, setFilters] = useState({
         search: '',
         selectedCategories: [],
@@ -24,22 +21,9 @@ export const Dashboard = () => {
     });
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const [tasksRes, categoriesRes] = await Promise.all([
-                    getTasks(),
-                    getCategories()
-                ]);
-                setTasks(tasksRes.data);
-                setCategories(categoriesRes.data);
-            } catch (err) {
-                setError(err.response?.data?.message || 'Error fetching data');
-            } finally {
-                setLoading(false);
-            }
-        };
+        const fetchData = async () => await Promise.all([getTasks(), getCategories()]);
         fetchData();
-    }, []);
+    }, [getCategories, getTasks]);
 
     const handleClearSearch = () => {
         setFilters(prev => ({ ...prev, search: '' }));
@@ -57,25 +41,34 @@ export const Dashboard = () => {
     };
 
     const filteredTasks = tasks.filter(task => {
-        const matchesSearch = task.title.toLowerCase().includes(filters.search.toLowerCase());
+        const taskTitle = task?.title?.toLowerCase() || '';
+        const taskCategory = task?.category_id?.toString() || '';
+        const taskStatus = task?.status?.toString() || '';
+        const taskPriority = task?.priority || '';
+
+        const matchesSearch = taskTitle.includes(filters.search.toLowerCase());
 
         const matchesCategory = filters.selectedCategories.length === 0 ||
-            filters.selectedCategories.includes(task.category_id.toString());
+            filters.selectedCategories.includes(taskCategory);
 
         const matchesStatus = filters.selectedStatuses.length === 0 ||
-            filters.selectedStatuses.includes(task.status.toString());
+            filters.selectedStatuses.includes(taskStatus);
 
         const matchesPriority = filters.selectedPriorities.length === 0 ||
-            filters.selectedPriorities.includes(task.priority);
+            filters.selectedPriorities.includes(taskPriority);
 
         return matchesSearch && matchesCategory && matchesStatus && matchesPriority;
     });
-    const sortedTasks = [...filteredTasks].sort((a, b) => {
+
+    var sortedTasks = [...filteredTasks].sort((a, b) => {
         if (filters.sortBy === 'created_at') {
             return new Date(a.created_at) - new Date(b.created_at);
         }
         if (filters.sortBy === 'title') {
             return a.title.localeCompare(b.title);
+        }
+        if (filters.sortBy === 'category') {
+            return a.category.title.localeCompare(b.category.title);
         }
         return 0;
     });
@@ -107,63 +100,44 @@ export const Dashboard = () => {
         }));
     };
 
-    useEffect(() => {
-        setCategories(dataCategories);
-    }, []);
-
-    useEffect(() => {
-        setTasks([]);
-    }, []);
-    const addTask = async (newTask) => {
-        try {
-            const res = await createTask({
-                title: newTask.title,
-                category_id: parseInt(newTask.category),
-                priority: newTask.priority
-            });
-            setTasks([...tasks, res.data]);
-        } catch (err) {
-            setError(err.response?.data?.message || 'Error creating task');
-        }
+    const onCreateTask = async (newTask) => {
+        await createTask({
+            title: newTask.title,
+            category_id: parseInt(newTask.category),
+            priority: newTask.priority
+        });
     };
 
-    const handleUpdateTask = async (updatedTask) => {
-        try {
-            const res = await updateTask(updatedTask.id, {
-                title: updatedTask.title,
-                category_id: parseInt(updatedTask.category),
-                priority: updatedTask.priority
-            });
-            setTasks(tasks.map(task => task.id === res.data.id ? res.data : task));
-        } catch (err) {
-            setError(err.response?.data?.message || 'Error updating task');
-        }
+    const onUpdateTask = async (updatedTask) => {
+        await updateTask(updatedTask.id, {
+            title: updatedTask.title,
+            category_id: parseInt(updatedTask.category),
+            priority: updatedTask.priority
+        });
     };
 
     const onDeleteTask = async (taskId) => {
-        try {
-            await deleteTask(taskId);
-            setTasks(tasks.filter(task => task.id !== taskId));
-        } catch (err) {
-            setError(err.response?.data?.message || 'Error deleting task');
-        }
+        await deleteTask(taskId);
+        await getTasks()
     };
 
     const onToggleTask = async (taskId) => {
-        try {
-            const res = await toggleTask(taskId);
-            setTasks(tasks.map(task =>
-                task.id === taskId ? res.data : task
-            ));
-        } catch (err) {
-            setError(err.response?.data?.message || 'Error toggling task');
-        }
+        await toggleTask(taskId);
+        await getTasks();
     };
 
-    const handleEditTask = (task) => {
-        setEditingTask(task);
+    const openEditModal = (task) => {
+        setSelectedTask(task);
         setShowModal(true);
     };
+
+    if (loading || categoriesLoading) {
+        return (
+            <div className="flex justify-center p-8">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+            </div>
+        );
+    }
 
     return (
         <div className='flex flex-col py-4'>
@@ -290,10 +264,11 @@ export const Dashboard = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-                {sortedTasks.map(task => (
+                {sortedTasks?.length > 0 && sortedTasks.map(task => (
                     <TaskCard
                         key={task.id}
                         task={task}
+                        onUpdateTask={openEditModal}
                         onToggleTask={onToggleTask}
                         onDeleteTask={onDeleteTask}
                     />
@@ -303,7 +278,9 @@ export const Dashboard = () => {
             {showModal && (
                 <TaskModal
                     onClose={() => setShowModal(false)}
-                    onSave={addTask}
+                    onCreate={onCreateTask}
+                    onUpdate={onUpdateTask}
+                    selectedTask={selectedTask}
                     categories={categories}
                 />
             )}

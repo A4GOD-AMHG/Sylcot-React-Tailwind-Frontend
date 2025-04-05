@@ -1,12 +1,25 @@
 import { useState } from 'react';
 
-const TaskModal = ({ onClose, onSave, categories }) => {
-    const [title, setTitle] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState(categories[0]?.id || '');
-    const [priority, setPriority] = useState('medium');
+const TaskModal = ({ onClose, onCreate, onUpdate, selectedTask, categories }) => {
+    const [title, setTitle] = useState(selectedTask?.title || '');
+    const [selectedCategory, setSelectedCategory] = useState(
+        selectedTask?.category_id?.toString() || (categories[0]?.id?.toString() || '')
+    );
+    const [priority, setPriority] = useState(selectedTask?.priority || 'medium');
+
 
     const handleSubmit = () => {
-        onSave({ title, category: selectedCategory, priority });
+        selectedTask ? onUpdate({
+            title,
+            category: selectedCategory,
+            priority,
+            ...(selectedTask?.id && { id: selectedTask.id })
+        }) :
+            onCreate({
+                title,
+                category: selectedCategory,
+                priority,
+            });
         onClose();
     };
 
